@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<!--/*@thymesVar id="resourceBootstrapCSS" type="java.lang.String"*/-->
+<!--/*@thymesVar id="resourceBootstrapCSS" type="java.lang.String"*/-->
+<!--/*@thymesVar id="resourceBootstrapJS" type="java.lang.String"*/-->
+<!--/*@thymesVar id="resourceMathJaxJS" type="java.lang.String"*/-->
+<!--/*@thymesVar id="resourceJQueryJS" type="java.lang.String"*/-->
+<!--/*@thymesVar id="loggedIn" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="version" type="java.lang.String"*/-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<title>Alacrity Web · A math expression presentation workspace.</title>
+
+	<link rel="icon" th:href="'favicons/favicon-32x32.png'" sizes="16x16 32x32 48x48 64x64 128x128" type="image/png"/>
+	<link rel="stylesheet" th:href="${resourceBootstrapCSS}"/>
+	<link rel="stylesheet" th:href="'/public/alacrity.css'">
+</head>
+<body class="d-flex align-items-start flex-column" th:inline="none">
+
+<div id="body-north" class="w-100">
+	<nav class="navbar navbar-dark bg-dark navbar-expand-md skinny" style="border-bottom: 1px solid black">
+		<a class="navbar-brand" style="padding-left: 10px;" href="/"><b>Alacrity</b></a>
+
+		<div class="p-2 flex-fill"></div>
+
+		<nav class="nav nav-masthead justify-content-center">
+			<a class="nav-link active" href="/">Home</a>
+			<a class="nav-link" th:href="'/intro'">Intro</a>
+			<a class="nav-link" th:href="'/math'">Math Book</a>
+			<a class="nav-link" th:href="'/'">&nbsp;</a>
+			<div class="skinny">
+				<button id="login-button" class="btn btn-outline-success" th:if="${loggedIn == false}">Login</button>
+				<button id="logout-button" class="btn btn-outline-success" th:if="${loggedIn == true}">Logout</button>
+			</div>
+		</nav>
+	</nav>
+</div>
+
+<div id="body-center" class="d-flex mb-auto flex-column w-100 scroll-view-container">
+	<div class="mb-auto w-100"></div>
+
+	<main role="main" class="text-center" style="min-height: 100px; height: 25vh">
+		<h1>Run with Alacrity</h1>
+		<p>Note down mathematical expressions online.</p>
+		<p class="lead">
+			<a th:href="'/intro'" class="btn btn-lg btn-secondary">Learn more</a>
+		</p>
+	</main>
+
+	<div class="mb-auto w-100"></div>
+</div>
+
+<div id="body-south" class="w-100 bg-dark" style="padding: 5px;">
+	<div class="footer">
+		<div class="container w-100 text-center">
+			<span class="text-muted" th:text="'{ Alacrity ' + ${version} + ' – © 2021 ZoftWhere}'"></span>
+		</div>
+	</div>
+</div>
+
+<!--/* Preserve the order of these JavaScript libraries for Bootstrap to work. */-->
+<script th:attr="src=${resourceJQueryJS}"></script>
+<script th:attr="src=${resourceBootstrapJS}"></script>
+
+<script>
+    // Disable active navigation links.
+    $('a.nav-link.active').click(function (e) {
+        e.preventDefault();
+        console.log("Disabled.")
+    });
+
+    // Bind login form submission.
+    $('#modal-login-form').submit(function (e) {
+        e.preventDefault();
+        console.log("submitting: " + JSON.stringify(e));
+
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            contentType: "application/x-www-form-urlencoded",
+            data: JSON.stringify($('#modal-login-form').serializeArray()),
+            success: function (message) {
+                console.log("Success");
+                console.log("On success: " + JSON.stringify(message));
+                // console.log("On success: " + JSON.stringify(message));
+                // window.location.replace("login");
+                return false;
+            },
+            complete: function (message) {
+                console.log("Complete");
+                console.log("On complete: " + JSON.stringify(message));
+                return false;
+            },
+            error: function (message) {
+                console.log("Error");
+                console.log("On error: " + JSON.stringify(message));
+                return false;
+            }
+        });
+    });
+
+    $('#login-button').click(function (e) {
+        e.preventDefault();
+        window.location.assign("/login");
+    });
+
+    $('#logout-button').click(function (e) {
+        e.preventDefault();
+        window.location.assign("/logout");
+    });
+</script>
+
+</body>
+</html>
