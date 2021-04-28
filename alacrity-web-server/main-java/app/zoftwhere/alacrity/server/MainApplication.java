@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
  * @since 1.0.0
  */
 @SpringBootApplication
+@EntityScan(basePackages = "app.zoftwhere.alacrity.server.entity")
 public class MainApplication {
 
     /**
