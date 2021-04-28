@@ -10,8 +10,8 @@ Project for online note-taking of mathematical expressions.
 
 ## Overview
 
-The ZoftWhere Alacrity Web project is a Maven project, that uses SpringBoot to launch a web server, ThymeLeaf for the 
-presentation layer, and MathJax for client side mathematic expression presentation. The web-based UI allows a user to 
+The ZoftWhere Alacrity Web project is a Maven project, that uses SpringBoot to launch a web server, ThymeLeaf for the
+presentation layer, and MathJax for client side mathematic expression presentation. The web-based UI allows a user to
 maintain a collection of mathematical works.
 
 ## License
