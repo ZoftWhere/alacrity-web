@@ -67,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/", "/public/*", "/favicons/*")
             .permitAll()
-            .antMatchers("/index", "/home")
+            .antMatchers("/index", "/home", "/login")
             .permitAll()
             .antMatchers("/application.yaml", "/templates/*")
             .hasRole("ADMIN")

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<!--/*@thymesVar id="resourceBootstrapCSS" type="java.lang.String"*/-->
+<!--/*@thymesVar id="resourceJQueryJS" type="java.lang.String"*/-->
+<!--/*@thymesVar id="resourceBootstrapJS" type="java.lang.String"*/-->
+<!--/*@thymesVar id="loggedIn" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="version" type="java.lang.String"*/-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Alacrity Login Page</title>
+
+	<link rel="stylesheet" th:attr="href=${resourceBootstrapCSS}"/>
+	<style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 0;
+            padding-bottom: 0;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        @media (min-width: 768px) {
+        }
+	</style>
+	<link rel="stylesheet" href="/public/alacrity.css">
+
+	<link rel="icon" href="/favicons/favicon-32x32.png" sizes="16x16 32x32 48x48 64x64 128x128" type="image/png"/>
+	<meta name="theme-color" content="#f5f5f5"/>
+</head>
+<body class="d-flex align-items-start flex-column" th:inline="none">
+
+<div id="body-north" class="w-100">
+	<nav class="navbar navbar-dark bg-dark navbar-expand-md skinny" style="border-bottom: 1px solid black">
+		<a class="navbar-brand" style="padding-left: 10px;" href="/"><b>Alacrity</b></a>
+
+		<div class="p-2 flex-fill"></div>
+
+		<nav class="nav nav-masthead justify-content-center">
+			<a class="nav-link active" href="/">Home</a>
+			<a class="nav-link" th:href="'/intro'">Intro</a>
+			<a class="nav-link" th:href="'/math'">Math Book</a>
+			<a class="nav-link" href="">&nbsp;</a>
+			<div class="skinny">
+				<button id="login-button" class="btn btn-outline-success" th:if="${loggedIn == false}">Login</button>
+				<button id="logout-button" class="btn btn-outline-success" th:if="${loggedIn == true}">Logout</button>
+			</div>
+		</nav>
+	</nav>
+</div>
+
+<div id="body-center" class="d-flex mb-auto flex-column w-100 scroll-view-container">
+	<div class="mb-auto w-100"></div>
+
+	<main role="main" class="text-center" style="min-height: 100px; height: 50vh">
+		<form id="form-login" class="form-signin">
+			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+			<label for="inputEmail" class="sr-only">Email address</label>
+			<input id="inputEmail" name="username" type="email" class="form-control" placeholder="Email address" required autofocus>
+			<label for="inputPassword" class="sr-only">Password</label>
+			<input id="inputPassword" name="password" type="password" class="form-control" placeholder="Password" required>
+			<div class="checkbox mb-3">
+				<label for="rememberMe"></label>
+				<input id="rememberMe" type="checkbox" value="remember-me">&nbsp;Remember me
+			</div>
+			<div th:if="${param.error}">
+				Invalid username and password.
+			</div>
+			<div th:if="${param.logout}">
+				You have been logged out.
+			</div>
+			<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
+		</form>
+	</main>
+
+	<div class="mb-auto w-100"></div>
+</div>
+
+<div id="body-south" class="w-100 bg-dark" style="padding: 5px;">
+	<div class="footer">
+		<div class="container w-100 text-center">
+			<span class="text-muted" th:text="'{ Alacrity ' + ${version} + ' – © 2021 ZoftWhere}'"></span>
+		</div>
+	</div>
+</div>
+
+<!--/* Preserve the order of these JavaScript libraries for Bootstrap to work. */-->
+<script th:attr="src=${resourceJQueryJS}"></script>
+<script th:attr="src=${resourceBootstrapJS}"></script>
+
+<script>
+    // https://stackoverflow.com/questions/4638296/jquery-equivalent-of-body-onload
+    $(window).on('load', function () {
+        console.log('hello.');
+    });
+</script>
+
+<script>
+    $.fn.serializeObject = function () {
+        const object = {};
+        const array = this.serializeArray();
+        $.each(array, function () {
+            if (object[this.name]) {
+                if (!object[this.name].push) {
+                    object[this.name] = [object[this.name]];
+                }
+                object[this.name].push(this.value || '');
+            } else {
+                object[this.name] = this.value || '';
+            }
+        });
+        return object;
+    };
+
+    console.log('Line: ');
+
+    $('#form-login').submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            // contentType: "application/x-www-form-urlencoded",
+            // data: $('#form-login').serialize(),
+            contentType: "application/json",
+            data: JSON.stringify($(this).serializeObject()),
+            success: function () {
+                window.location.assign("");
+                return false;
+            },
+            error: function () {
+                window.location.replace("login?error");
+                return false;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
