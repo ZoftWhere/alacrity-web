@@ -10,21 +10,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Alacrity Login Page</title>
 
-	<link rel="stylesheet" th:attr="href=${resourceBootstrapCSS}"/>
+	<link rel="stylesheet" th:href="${resourceBootstrapCSS}"/>
+	<link rel="stylesheet" th:href="'/public/alacrity.css'">
 	<style>
-        html,
         body {
-            height: 100%;
-        }
-
-        body {
-            display: -ms-flexbox;
-            display: flex;
             -ms-flex-align: center;
             align-items: center;
             padding-top: 0;
             padding-bottom: 0;
-            background-color: #f5f5f5;
+			color: #333333;
         }
 
         .form-signin {
@@ -65,12 +59,11 @@
         @media (min-width: 768px) {
         }
 	</style>
-	<link rel="stylesheet" href="/public/alacrity.css">
 
-	<link rel="icon" href="/favicons/favicon-32x32.png" sizes="16x16 32x32 48x48 64x64 128x128" type="image/png"/>
+	<link rel="icon" th:href="'/favicons/favicon-32x32.png'" sizes="16x16 32x32 48x48 64x64 128x128" type="image/png"/>
 	<meta name="theme-color" content="#f5f5f5"/>
 </head>
-<body class="d-flex align-items-start flex-column" th:inline="none">
+<body class="d-flex align-items-start flex-column body-flex" th:inline="none">
 
 <div id="body-north" class="w-100">
 	<nav class="navbar navbar-dark bg-dark navbar-expand-md skinny" style="border-bottom: 1px solid black">
@@ -82,7 +75,7 @@
 			<a class="nav-link active" href="/">Home</a>
 			<a class="nav-link" th:href="'/intro'">Intro</a>
 			<a class="nav-link" th:href="'/math'">Math Book</a>
-			<a class="nav-link" href="">&nbsp;</a>
+			<a class="nav-link" th:href="''">&nbsp;</a>
 			<div class="skinny">
 				<button id="login-button" class="btn btn-outline-success" th:if="${loggedIn == false}">Login</button>
 				<button id="logout-button" class="btn btn-outline-success" th:if="${loggedIn == true}">Logout</button>
