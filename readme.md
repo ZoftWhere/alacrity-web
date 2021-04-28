@@ -1,10 +1,10 @@
-# ZoftWhere Steel Grit
+# ZoftWhere Alacrity Web
 
-![Language](https://img.shields.io/github/languages/top/ZoftWhere/steel-grit)
-[![License](https://img.shields.io/github/license/ZoftWhere/steel-grit)](https://github.com/ZoftWhere/steel-grit/blob/master/license.txt)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/ZoftWhere/steel-grit)
-![GitHub Release Date](https://img.shields.io/github/release-date/ZoftWhere/steel-grit)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/ZoftWhere/steel-grit/master?label=master%20updated)
+![Language](https://img.shields.io/github/languages/top/ZoftWhere/alacrity-web)
+[![License](https://img.shields.io/github/license/ZoftWhere/alacrity-web)](https://github.com/ZoftWhere/alacrity-web/blob/master/license.txt)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ZoftWhere/alacrity-web)
+![GitHub Release Date](https://img.shields.io/github/release-date/ZoftWhere/alacrity-web)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/ZoftWhere/alacrity-web/master?label=master%20updated)
 
 Project for online note-taking of mathematical expressions.
 
